@@ -21,6 +21,7 @@ repos:
     hooks:
       - id: mypy
         additional_dependencies: [fastapi]
+        additional_dependencies: ["sqlalchemy>=2.0"]
 
   # Security Scanner
   - repo: https://github.com/PyCQA/bandit

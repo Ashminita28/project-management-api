@@ -43,6 +43,8 @@ select = ["E", "F", "W", "I", "UP", "B", "SIM"]
 python_version = "3.11"
 strict = true
 ignore_missing_imports = true
+plugins = ["sqlalchemy.ext.mypy.plugin"]
+disallow_untyped_decorators = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
