@@ -1,5 +1,3 @@
-from typing import Annotated, Any
-
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,7 +9,7 @@ from app.services.user_service import UserService
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-def get_user_service(db: Annotated[AsyncSession, Depends(get_db)]) -> UserService:
+def get_user_service(db: AsyncSession = Depends(get_db)) -> UserService:
     repo = UserRepository(db)
     return UserService(repo)
 
@@ -19,14 +17,10 @@ def get_user_service(db: Annotated[AsyncSession, Depends(get_db)]) -> UserServic
 @router.post(
     "/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED
 )
-async def register(
-    user: UserCreate, service: Annotated[UserService, Depends(get_user_service)]
-) -> Any:
+async def register(user: UserCreate, service: UserService = Depends(get_user_service)):
     return await service.register_user(user)
 
 
 @router.post("/login")
-async def login(
-    user: UserLogin, service: Annotated[UserService, Depends(get_user_service)]
-) -> dict[str, str]:
+async def login(user: UserLogin, service: UserService = Depends(get_user_service)):
     return await service.login_user(user)
