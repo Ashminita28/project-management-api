@@ -54,5 +54,5 @@ plugins = ["sqlalchemy.ext.mypy.plugin", "pydantic.mypy"]
 disallow_untyped_decorators = false
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["app/tests"]
 pythonpath = ["."]

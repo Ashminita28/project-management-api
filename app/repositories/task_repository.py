@@ -75,6 +75,13 @@ class TaskRepository:
                 )
                 .count()
             )
+            in_review = (
+                self.db.query(Task)
+                .filter(
+                    Task.project_id == project_id, Task.status == TaskStatus.IN_REVIEW
+                )
+                .count()
+            )
             done = (
                 self.db.query(Task)
                 .filter(Task.project_id == project_id, Task.status == TaskStatus.DONE)
@@ -84,6 +91,7 @@ class TaskRepository:
                 "total_tasks": total,
                 "todo": todo,
                 "in_progress": in_progress,
+                "in_review": in_review,
                 "done": done,
             }
         except SQLAlchemyError as exc:
