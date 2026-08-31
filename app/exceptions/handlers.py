@@ -9,9 +9,8 @@ from app.config import logger
 from app.exceptions.domain import AppError
 
 
-async def request_validation_handler(
-    request: Request, exc: RequestValidationError
-) -> JSONResponse:
+async def request_validation_handler(request: Request, exc: Exception) -> JSONResponse:
+    assert isinstance(exc, RequestValidationError)
     """Handle Pydantic request validation errors (422).
 
     Args:
@@ -37,9 +36,8 @@ async def request_validation_handler(
     )
 
 
-async def http_exception_handler(
-    request: Request, exc: StarletteHTTPException
-) -> JSONResponse:
+async def http_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    assert isinstance(exc, StarletteHTTPException)
     """Handle FastAPI/Starlette HTTPException.
 
     Args:
@@ -66,7 +64,8 @@ async def http_exception_handler(
     )
 
 
-async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
+async def app_error_handler(request: Request, exc: Exception) -> JSONResponse:
+    assert isinstance(exc, AppError)
     """Handle domain AppError and subclasses.
 
     Args:
