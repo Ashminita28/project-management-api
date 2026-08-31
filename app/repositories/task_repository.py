@@ -1,63 +1,91 @@
-from sqlalchemy import func, select
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
 
+from app.config import logger
+from app.exceptions.domain import InternalError
 from app.models.task_model import Task
 from app.schemas.task_schema import TaskStatus
 
 
 class TaskRepository:
-    def __init__(self, db: AsyncSession):
+    def __init__(self, db: Session):
         self.db = db
 
-    async def create_task(self, task: Task) -> Task:
-        self.db.add(task)
-        await self.db.commit()
-        await self.db.refresh(task)
-        return task
+    def create_task(self, task: Task) -> Task:
+        try:
+            self.db.add(task)
+            self.db.commit()
+            self.db.refresh(task)
+            return task
+        except SQLAlchemyError as exc:
+            self.db.rollback()
+            logger.exception(f"Database error in create_task: {str(exc)}")
+            raise InternalError("Failed to create task in database.") from exc
 
-    async def get_tasks_by_project(
-        self,
-        project_id: int,
-        skip: int = 0,
-        limit: int = 10,
-        status: TaskStatus | None = None,
+    def get_tasks_by_project(
+        self, project_id: int, skip: int = 0, limit: int = 10, status: str | None = None
     ) -> list[Task]:
-        query = select(Task).where(Task.project_id == project_id)
-        if status:
-            query = query.where(Task.status == status)
-        query = query.offset(skip).limit(limit)
-        result = await self.db.execute(query)
-        return list(result.scalars().all())
+        try:
+            query = self.db.query(Task).filter(Task.project_id == project_id)
+            if status:
+                query = query.filter(Task.status == status)
+            return query.offset(skip).limit(limit).all()
+        except SQLAlchemyError as exc:
+            logger.exception(f"Database error in get_tasks_by_project: {str(exc)}")
+            raise InternalError("Failed to retrieve tasks from database.") from exc
 
-    async def get_task_by_id(self, task_id: int) -> Task | None:
-        query = select(Task).where(Task.id == task_id)
-        result = await self.db.execute(query)
-        return result.scalar_one_or_none()
+    def get_task_by_id(self, task_id: int) -> Task | None:
+        try:
+            return self.db.query(Task).filter(Task.id == task_id).first()
+        except SQLAlchemyError as exc:
+            logger.exception(f"Database error in get_task_by_id: {str(exc)}")
+            raise InternalError("Failed to retrieve task from database.") from exc
 
-    async def update_task(self, task: Task) -> Task:
-        await self.db.commit()
-        await self.db.refresh(task)
-        return task
+    def update_task(self, task: Task) -> Task:
+        try:
+            self.db.commit()
+            self.db.refresh(task)
+            return task
+        except SQLAlchemyError as exc:
+            self.db.rollback()
+            logger.exception(f"Database error in update_task: {str(exc)}")
+            raise InternalError("Failed to update task in database.") from exc
 
-    async def delete_task(self, task: Task) -> None:
-        await self.db.delete(task)
-        await self.db.commit()
+    def delete_task(self, task: Task) -> None:
+        try:
+            self.db.delete(task)
+            self.db.commit()
+        except SQLAlchemyError as exc:
+            self.db.rollback()
+            logger.exception(f"Database error in delete_task: {str(exc)}")
+            raise InternalError("Failed to delete task in database.") from exc
 
-    async def get_project_summary(self, project_id: int) -> dict:
-        query = (
-            select(Task.status, func.count(Task.id))
-            .where(Task.project_id == project_id)
-            .group_by(Task.status)
-        )
-        result = await self.db.execute(query)
-
-        summary = {"total_tasks": 0, "todo": 0, "in_progress": 0, "done": 0}
-        for status_val, count in result.all():
-            summary["total_tasks"] += count
-            if status_val == TaskStatus.TO_DO:
-                summary["todo"] = count
-            elif status_val == TaskStatus.IN_PROGRESS:
-                summary["in_progress"] = count
-            elif status_val == TaskStatus.DONE:
-                summary["done"] = count
-        return summary
+    def get_project_summary(self, project_id: int) -> dict:
+        try:
+            total = self.db.query(Task).filter(Task.project_id == project_id).count()
+            todo = (
+                self.db.query(Task)
+                .filter(Task.project_id == project_id, Task.status == TaskStatus.TO_DO)
+                .count()
+            )
+            in_progress = (
+                self.db.query(Task)
+                .filter(
+                    Task.project_id == project_id, Task.status == TaskStatus.IN_PROGRESS
+                )
+                .count()
+            )
+            done = (
+                self.db.query(Task)
+                .filter(Task.project_id == project_id, Task.status == TaskStatus.DONE)
+                .count()
+            )
+            return {
+                "total_tasks": total,
+                "todo": todo,
+                "in_progress": in_progress,
+                "done": done,
+            }
+        except SQLAlchemyError as exc:
+            logger.exception(f"Database error in get_project_summary: {str(exc)}")
+            raise InternalError("Failed to generate project summary.") from exc

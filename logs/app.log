@@ -1,0 +1,96 @@
+2026-08-31 16:34:54 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 16:34:55 | INFO     | projectManager:create_project:18 - User 1 created new project: Secret Project (ID: 1)
+2026-08-31 16:34:55 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 16:34:55 | INFO     | projectManager:create_project:18 - User 1 created new project: Project 1 (ID: 1)
+2026-08-31 16:34:55 | INFO     | projectManager:create_project:18 - User 1 created new project: Project 2 (ID: 2)
+2026-08-31 16:34:56 | INFO     | projectManager:create_project:18 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 16:34:56 | INFO     | projectManager:create_task:34 - User 1 added task 'Test Task' to Project 1
+2026-08-31 16:34:57 | INFO     | projectManager:create_project:18 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 16:34:57 | INFO     | projectManager:create_task:34 - User 1 added task 'Task 1' to Project 1
+2026-08-31 16:34:57 | INFO     | projectManager:create_task:34 - User 1 added task 'Task 2' to Project 1
+2026-08-31 16:34:57 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 20:07:31 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:07:31 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:07:32 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:07:32 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 20:07:33 | INFO     | projectManager:create_project:20 - User 1 created new project: P1 (ID: 1)
+2026-08-31 20:07:33 | INFO     | projectManager:create_project:20 - User 1 created new project: P2 (ID: 2)
+2026-08-31 20:07:34 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:07:34 | INFO     | projectManager:create_task:36 - User 1 added task 'Test Task' to Project 1
+2026-08-31 20:07:35 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:07:35 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 1' to Project 1
+2026-08-31 20:07:35 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 2' to Project 1
+2026-08-31 20:07:35 | WARNING  | projectManager:http_exception_handler:54 - HTTP 404 on GET /projects/1/summary: Not Found
+2026-08-31 20:07:36 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 20:09:12 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:09:12 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:09:13 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:09:13 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 20:09:14 | INFO     | projectManager:create_project:20 - User 1 created new project: P1 (ID: 1)
+2026-08-31 20:09:14 | INFO     | projectManager:create_project:20 - User 1 created new project: P2 (ID: 2)
+2026-08-31 20:09:15 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:09:15 | INFO     | projectManager:create_task:36 - User 1 added task 'Test Task' to Project 1
+2026-08-31 20:09:16 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:09:16 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 1' to Project 1
+2026-08-31 20:09:16 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 2' to Project 1
+2026-08-31 20:09:16 | ERROR    | projectManager:get_project_dashboard:117 - Unexpected error fetching dashboard: type object 'TaskStatus' has no attribute 'TODO'
+Traceback (most recent call last):
+  File "C:\dev\PYTHON\project_management_api\app\services\task_service.py", line 110, in get_project_dashboard
+    return self.task_repo.get_project_summary(project_id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\dev\PYTHON\project_management_api\app\repositories\task_repository.py", line 36, in get_project_summary
+    todo = self.db.query(Task).filter(Task.project_id == project_id, Task.status == TaskStatus.TODO).count()
+                                                                                    ^^^^^^^^^^^^^^^
+AttributeError: type object 'TaskStatus' has no attribute 'TODO'. Did you mean: 'TO_DO'?
+2026-08-31 20:09:16 | WARNING  | projectManager:app_error_handler:79 - AppError (internal_error) on GET /projects/1/summary: Failed to fetch dashboard
+2026-08-31 20:09:18 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 20:10:20 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:10:20 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:10:21 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:10:21 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 20:10:22 | INFO     | projectManager:create_project:20 - User 1 created new project: P1 (ID: 1)
+2026-08-31 20:10:22 | INFO     | projectManager:create_project:20 - User 1 created new project: P2 (ID: 2)
+2026-08-31 20:10:23 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:10:23 | INFO     | projectManager:create_task:36 - User 1 added task 'Test Task' to Project 1
+2026-08-31 20:10:24 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:10:24 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 1' to Project 1
+2026-08-31 20:10:24 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 2' to Project 1
+2026-08-31 20:10:25 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 20:28:31 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:28:31 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 20:28:32 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:28:32 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 20:28:33 | INFO     | projectManager:create_project:19 - User 1 created new project: P1 (ID: 1)
+2026-08-31 20:28:33 | INFO     | projectManager:create_project:19 - User 1 created new project: P2 (ID: 2)
+2026-08-31 20:28:34 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:28:34 | INFO     | projectManager:create_task:35 - User 1 added task 'Test Task' to Project 1
+2026-08-31 20:28:35 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 20:28:35 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 1' to Project 1
+2026-08-31 20:28:35 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 2' to Project 1
+2026-08-31 20:28:36 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 22:53:24 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 22:53:24 | INFO     | projectManager:create_app:36 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 22:53:25 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:53:25 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 22:53:25 | INFO     | projectManager:create_project:19 - User 1 created new project: P1 (ID: 1)
+2026-08-31 22:53:25 | INFO     | projectManager:create_project:19 - User 1 created new project: P2 (ID: 2)
+2026-08-31 22:53:26 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:53:26 | INFO     | projectManager:create_task:35 - User 1 added task 'Test Task' to Project 1
+2026-08-31 22:53:27 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:53:27 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 1' to Project 1
+2026-08-31 22:53:27 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 2' to Project 1
+2026-08-31 22:53:28 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered
+2026-08-31 22:56:47 | INFO     | projectManager:_initialize_database:36 - Database initialized.
+2026-08-31 22:56:47 | INFO     | projectManager:create_app:42 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 22:56:47 | INFO     | projectManager:_initialize_database:36 - Database initialized.
+2026-08-31 22:56:47 | INFO     | projectManager:create_app:42 - Starting Project Management API in DEVELOPMENT mode.
+2026-08-31 22:56:47 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:56:47 | WARNING  | projectManager:http_exception_handler:54 - HTTP 401 on POST /projects/: Not authenticated
+2026-08-31 22:56:48 | INFO     | projectManager:create_project:19 - User 1 created new project: P1 (ID: 1)
+2026-08-31 22:56:48 | INFO     | projectManager:create_project:19 - User 1 created new project: P2 (ID: 2)
+2026-08-31 22:56:49 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:56:49 | INFO     | projectManager:create_task:35 - User 1 added task 'Test Task' to Project 1
+2026-08-31 22:56:49 | INFO     | projectManager:create_project:19 - User 1 created new project: Test Project (ID: 1)
+2026-08-31 22:56:49 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 1' to Project 1
+2026-08-31 22:56:49 | INFO     | projectManager:create_task:35 - User 1 added task 'Task 2' to Project 1
+2026-08-31 22:56:50 | WARNING  | projectManager:app_error_handler:79 - AppError (conflict) on POST /users/register: Email is already registered

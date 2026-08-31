@@ -1,20 +1,29 @@
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
 
+from app.config import logger
+from app.exceptions.domain import InternalError
 from app.models.user_model import User
 
 
 class UserRepository:
-    def __init__(self, db: AsyncSession):
+    def __init__(self, db: Session):
         self.db = db
 
-    async def get_user_by_email(self, email: str) -> User | None:
-        query = select(User).where(User.email == email)
-        result = await self.db.execute(query)
-        return result.scalar_one_or_none()
+    def get_user_by_email(self, email: str) -> User | None:
+        try:
+            return self.db.query(User).filter(User.email == email).first()
+        except SQLAlchemyError as exc:
+            logger.exception(f"Database error in get_user_by_email: {str(exc)}")
+            raise InternalError("Failed to retrieve user from database.") from exc
 
-    async def create_user(self, user: User) -> User:
-        self.db.add(user)
-        await self.db.commit()
-        await self.db.refresh(user)
-        return user
+    def create_user(self, user: User) -> User:
+        try:
+            self.db.add(user)
+            self.db.commit()
+            self.db.refresh(user)
+            return user
+        except SQLAlchemyError as exc:
+            self.db.rollback()
+            logger.exception(f"Database error in create_user: {str(exc)}")
+            raise InternalError("Failed to create user in database.") from exc
