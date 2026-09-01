@@ -55,7 +55,7 @@ class UserService:
             )
             return self.repository.create_user(new_user)
         except AppError:
-            raise  # Let expected domain errors (including DB InternalErrors) bubble up
+            raise
         except Exception as e:
             logger.exception("Unexpected error in register_user: %s", e)
             raise InternalError("Failed to register user") from e
