@@ -146,3 +146,31 @@ AttributeError: type object 'TaskStatus' has no attribute 'TODO'. Did you mean: 
 2026-09-01 00:10:16 | INFO     | projectManager:delete_task:98 - User 1 deleted task ID: 1
 2026-09-01 00:10:16 | WARNING  | projectManager:app_error_handler:78 - AppError (not_found) on GET /tasks/1: Task not found
 2026-09-01 00:10:17 | WARNING  | projectManager:app_error_handler:78 - AppError (conflict) on POST /users/register: Email is already registered
+2026-09-01 15:07:49 | INFO     | projectManager:_initialize_database:39 - Database initialized.
+2026-09-01 15:07:49 | INFO     | projectManager:create_app:45 - Starting Project Management API in DEVELOPMENT mode.
+2026-09-01 15:07:50 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:50 | WARNING  | projectManager:http_exception_handler:52 - HTTP 401 on POST /projects/: Not authenticated
+2026-09-01 15:07:51 | INFO     | projectManager:create_project:20 - User 1 created new project: P1 (ID: 1)
+2026-09-01 15:07:51 | INFO     | projectManager:create_project:20 - User 1 created new project: P2 (ID: 2)
+2026-09-01 15:07:51 | INFO     | projectManager:create_project:20 - User 1 created new project: Single Project (ID: 1)
+2026-09-01 15:07:52 | INFO     | projectManager:create_project:20 - User 1 created new project: Old Name (ID: 1)
+2026-09-01 15:07:52 | INFO     | projectManager:update_project:66 - User 1 updated project ID: 1
+2026-09-01 15:07:52 | INFO     | projectManager:create_project:20 - User 1 created new project: To Delete (ID: 1)
+2026-09-01 15:07:52 | INFO     | projectManager:delete_project:78 - User 1 deleted project ID: 1
+2026-09-01 15:07:52 | WARNING  | projectManager:app_error_handler:78 - AppError (not_found) on GET /projects/1: Project not found
+2026-09-01 15:07:53 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:53 | INFO     | projectManager:create_task:36 - User 1 added task 'Test Task' to Project 1
+2026-09-01 15:07:53 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:54 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 1' to Project 1
+2026-09-01 15:07:54 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 2' to Project 1
+2026-09-01 15:07:54 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:54 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 1' to Project 1
+2026-09-01 15:07:54 | INFO     | projectManager:create_task:36 - User 1 added task 'Task 2' to Project 1
+2026-09-01 15:07:55 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:55 | INFO     | projectManager:create_task:36 - User 1 added task 'Old Task' to Project 1
+2026-09-01 15:07:55 | INFO     | projectManager:update_task:84 - User 1 updated task ID: 1 to status 'Done'
+2026-09-01 15:07:55 | INFO     | projectManager:create_project:20 - User 1 created new project: Test Project (ID: 1)
+2026-09-01 15:07:55 | INFO     | projectManager:create_task:36 - User 1 added task 'To Delete' to Project 1
+2026-09-01 15:07:55 | INFO     | projectManager:delete_task:98 - User 1 deleted task ID: 1
+2026-09-01 15:07:55 | WARNING  | projectManager:app_error_handler:78 - AppError (not_found) on GET /tasks/1: Task not found
+2026-09-01 15:07:56 | WARNING  | projectManager:app_error_handler:78 - AppError (conflict) on POST /users/register: Email is already registered
