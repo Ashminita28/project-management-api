@@ -1,6 +1,10 @@
-import requests
+import os
 
-BASE_API_URL = "http://localhost:8000"
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+BASE_API_URL = os.getenv("BASE_API_URL", "http://localhost:8000")
 
 """ user managements API's"""
 
