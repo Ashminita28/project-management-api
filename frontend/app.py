@@ -11,7 +11,6 @@ from utils.session_utils import (
 
 st.set_page_config(
     page_title="Project Management",
-    page_icon="",
     layout="wide",
 )
 
@@ -51,7 +50,6 @@ if not is_logged_in():
                 if response.status_code == 200:
                     data = response.json()
 
-                    # Store JWT token
                     login(data["access_token"])
 
                     st.success("Login successful!")
